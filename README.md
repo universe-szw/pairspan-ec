@@ -1,93 +1,169 @@
-# PairSpan-EC: WSDM 2027 Verification Package
+# PairSpan-EC
 
-Code and numeric evidence for **Finite-Budget Pair-Span Search for
-Classifier-Based Prompt Screening**.
+Finite-budget pair-span search for classifier-based prompt screening.
 
-**Accepted at WSDM 2027, Main Conference; to appear.** Final publication
-metadata and the paper link will be added when available.
+This repository provides the core implementation, de-identified experimental
+measurements, and numerical reproduction scripts for **Finite-Budget Pair-Span
+Search for Classifier-Based Prompt Screening**.
 
-This package corresponds to the paper's camera-ready content revision,
-not the subsequent decision-layer system.
+**Accepted at WSDM 2027, Main Conference; to appear.**
 
-## Quick Start: Recompute Reported Results
+## Method
 
-Python 3.10 or newer and NumPy are sufficient. Once NumPy is installed,
-reproduction is entirely offline: no GPU, API key, model download, original
-repository, or private data is used.
+Erase-and-check screens a prompt by deleting token spans and classifying the
+remaining text. When two adversarial blocks are inserted at separated
+positions, deleting either block alone can leave the other block in place.
+PairSpan-EC searches for useful span pairs within a fixed classifier-evaluation
+budget, without training a new classifier.
 
-```sh
+1. **Collect single-span evidence.** Combine length-balanced geometric spans
+   with proposals from one classifier-gradient pass, then score their deletion
+   candidates using the harmful-label probability.
+2. **Rank adaptive pairs.** Apply non-maximum suppression and pair
+   non-overlapping spans, ranked by the sum of their single-span scores.
+3. **Retain geometric coverage.** Interleave adaptive pairs with a deterministic
+   geometric family, removing duplicate candidate texts.
+4. **Share one budget.** Count the original prompt and every evaluated
+   candidate against the same cap. Keep the paper's stage/prefix stopping rules.
+
+The primary setting uses a fixed DistilBERT classifier, a known two-span
+insertion mode, and white-box access for saliency proposals. The gradient pass
+is reported separately from classifier evaluations.
+
+## Evaluation Results
+
+| HarmBench behaviors | Insertion lengths | Attack prompts | ShareGPT benign prompts |
+| :---: | :---: | :---: | :---: |
+| **159** | **15** | **2,385** | **500** |
+
+![Conditional attack recovery across classifier-evaluation budgets](assets/figures/budget_recovery.png)
+
+*Recovery under the default decision rules at common maximum budgets. Error
+bars are 95% base-prompt clustered bootstrap intervals; RandomPairGrid averages
+five fixed orders. The vertical axis starts at 40%. [Figure source](assets/figures/README.md).*
+
+The default comparison below uses 2,380 attacks that bypass the original
+classifier. False-positive rates use the separate 500-prompt ShareGPT set
+manually validated as benign. Checks are means over all 2,385 attack inputs.
+
+| Method | Schedule | Recovery (%) | ShareGPT FPR (%) | Mean checks |
+| --- | --- | ---: | ---: | ---: |
+| GeometricPrefix | B384 | 64.79 | 21.40 | 258.3 |
+| RandomPairGrid | B384, five orders | 55.48 | 21.00-21.80 | 258.3 |
+| Capped MCE | B384 | 67.27 | 31.40 | 205.0 |
+| PairSpan-EC, no saliency | B384 | 77.86 | 37.60 | 278.8 |
+| **PairSpan-EC** | **B384** | **80.21** | **38.00** | **259.6** |
+| RandEC-0.10 | Reference schedule | 73.32 | 22.40 | 321.6 |
+| GreedyEC-10 | Reference schedule | 42.39 | 50.60 | 487.6 |
+| GreedyEC-20 | Reference schedule | 53.70 | 56.80 | 847.5 |
+| GradEC-50 | Reference schedule | 22.31 | 25.20 | 41.5 |
+
+PairSpan-EC has higher default-rule recovery among the compared common-cap
+policies, together with a higher benign false-positive rate. Cross-method
+calibration changes the comparison: at an observed shared test FPR of
+**6.20% (31/500)**, PairSpan-EC recovers **29.03%** and GeometricPrefix
+**32.10%**. The repository retains both default and calibrated results.
+
+## Maintenance
+
+Maintained by Zhewei Shen ([@universe-szw](https://github.com/universe-szw)).
+Use GitHub Issues for implementation, data-schema, or reproduction questions.
+Final paper metadata will be added when available.
+
+## Directory Structure
+
+- `src/`: PairSpan-EC, EC controls, saliency, calibration, and statistical analysis.
+- `data/`: de-identified measurements, aggregate evaluation tables, and timing records.
+- `reference/`: numerical targets used to check the reproduction outputs.
+- `configs/`: classifier conventions and the paper's default parameters.
+- `assets/figures/`: the paper's budget-recovery figure and its provenance.
+- `tests/`: numerical validation, core-policy tests, and an offline inference smoke test.
+- `provenance/`: implementation identities and measurement-export definitions.
+
+## Numerical Records
+
+The compressed score file contains **33,935 measurements**: 11 configurations
+on 200 calibration requests, 500 benign test requests, and 2,385 attack inputs.
+The calibration pool is filter-selected; the separate ShareGPT-500 evaluation
+pool is human-validated.
+
+| Fields | Meaning |
+| --- | --- |
+| `dataset_id`, `method_id`, `seed` | Evaluation population and method configuration. |
+| `prompt_idx`, `insertion_t`, `request_id` | Dataset-scoped row identity; insertion length is null for benign inputs. |
+| `base_group_id` | Ranked base-request group used for clustered attack statistics. |
+| `base_harmful`, `default_harmful`, `ec_score` | Original classifier decision, EC decision, and recorded maximum harmful probability. |
+| `classifier_checks`, `gradient_passes` | Measured classifier evaluations and separately recorded gradient passes. |
+
+Original input texts, token sequences, model weights, and attack-generation
+code are excluded. The supplied measurements support statistical recomputation;
+aggregate-only evaluations are listed in [RESULT_MAP.md](RESULT_MAP.md).
+See [DATA_SCOPE.md](DATA_SCOPE.md) for dataset and verification definitions.
+
+## Quick Start Without a GPU or API Key
+
+Use Python 3.10 or newer. Install NumPy, then run from the repository root:
+
+```text
 python -m pip install -r requirements.txt
 python reproduce.py --output results
-python -B -m unittest discover -s tests -v
 ```
 
-`results` must be new or empty. The command verifies the package checksums,
-refits thresholds using **only** the 200 calibration requests, evaluates the
-fixed 500-request benign set and 2,385 attack records, and recomputes the
-10,000-replicate base-group bootstrap. It checks every generated evaluation
-cell against the paper's frozen numerical reference, including all five
-random orders, their within-request mean, paired differences, and per-length
-counts. A mismatch is an error, not a warning.
+The command refits thresholds using only the 200 calibration requests,
+recomputes recovery, false-positive rates, query costs, and 10,000-replicate
+clustered intervals, and checks the outputs against the recorded paper values.
+It also recomputes timing summaries from all five archived repetitions.
+Execution is offline once the dependency is installed.
 
-The calibration set was filter-selected and used for threshold selection;
-the separate ShareGPT-500 set was author-confirmed human-validated as benign.
-Conditional attack recovery uses 2,380 original base-classifier bypasses.
-The five original base positives are reported separately, never added to that
-denominator. Retrospective score filtering does not save classifier queries.
+Outputs include `fit/thresholds.json`, `evaluation/operating_points.csv`,
+per-length results, paired differences, timing summaries, and `verification.json`.
+Use a new or empty output directory. Integrity mismatches stop execution.
+Recomputing recorded measurements is distinct from rerunning model inference
+or measuring new hardware latency.
 
-## What Can Be Reproduced
+## Code Usage
 
-| Component | Included verification |
-| --- | --- |
-| Primary default-rule results | Recomputed from per-request decisions, scores and costs |
-| Cross-method calibration | Thresholds refitted; test operating points recomputed |
-| Statistical intervals | Shared, seeded group bootstrap and benign Wilson intervals |
-| Timing summaries | Recomputed from all five archived timing repetitions |
-| Other published evaluations | Sanitized aggregate source tables for inspection; not new inference |
-| PairSpan-EC and EC controls | Original function bodies and saliency implementation |
+Run the core policy on your own local classifier and inputs:
 
-The included records are **measurements from the paper's original runs**, not
-synthetic benchmarks. Recomputing their statistics is distinct from repeating
-classifier inference. Original prompts, adversarial token strings, model
-weights, training data, and attack-generation code are not distributed.
-Consequently, this package does not enable an independent end-to-end rerun of
-every experiment, nor does it reproduce hardware latency by running statistics.
-Core implementation tests use explicitly synthetic, harmless fixtures.
-
-## Run PairSpan-EC on Your Own Local Inputs
-
-Optional dependencies are separate from the lightweight reproduction path:
-
-```sh
+```text
 python -m pip install -r requirements-inference.txt
 python run_inference.py --model-dir /path/to/local/classifier --input prompts.txt --output decisions.jsonl
 ```
 
-Use a local Hugging Face sequence-classification directory with safetensors
-weights and tokenizer files. No downloads, API calls, remote model code, or
-pickle model loading are enabled. Class 0 must mean harmful and class 1 benign.
-The paper's default is DistilBERT, 512-token truncation, two insertion spans,
-maximum span length 64, and a cap of 384 classifier evaluations. Saliency is
-one separate gradient pass. Stage/prefix stopping is retained; this is not the
-later chunk-16/early-accept decision system.
+The classifier directory must contain local Hugging Face tokenizer files and
+safetensors weights, with `LABEL_0` meaning harmful and `LABEL_1` benign.
+No model downloads or API calls are made. The runner outputs numeric decisions
+and costs without saving input or deletion text.
 
-The paper's DistilBERT state-dict SHA-256 is recorded in
-`configs/paper_settings.json` for identification, not as a bundled/downloadable
-checkpoint. Your own checkpoint or inputs need not reproduce published rates.
-The runner writes numeric decisions only, not your input or deletion text.
+The paper defaults to 512-token truncation, two insertion spans, maximum span
+length 64, and 384 classifier evaluations. Settings and the original checkpoint
+fingerprint are in [configs/paper_settings.json](configs/paper_settings.json).
+Results on a different checkpoint or input population can differ.
 
-## Contents
+## Development
 
-- `src/`: core paper algorithms and numeric analysis.
-- `data/`: de-identified numeric records and aggregate source tables.
-- `reference/`: published numerical targets, separate from computation inputs.
-- `configs/`: default paper settings.
-- `provenance/`: code identity, export definitions, and source hashes.
-- `tests/`: focused tests; no raw prompt fixtures or model downloads.
-- `MANIFEST.sha256`: integrity checks for distributable files.
+```text
+python -B -m unittest discover -s tests -v
+```
 
-`REPRODUCTION_REPORT.json` records the tested scope and actual verification
-outcome for this release. See `DATA_SCOPE.md` and `THIRD_PARTY_NOTICES.md` for
-data boundaries and attribution, and `RESULT_MAP.md` for the table-by-table
-verification scope. No full reproducibility or artifact badge is implied by
-the existence of this package.
+The NumPy-only environment runs numerical tests; core-policy and inference
+tests additionally use `requirements-inference.txt`. The inference smoke test
+creates a tiny random local classifier and harmless synthetic inputs. It does
+not require the paper's model or data. Release verification is recorded in
+[REPRODUCTION_REPORT.json](REPRODUCTION_REPORT.json).
+
+## License and Reuse
+
+Code and numerical measurement exports are distributed under the [MIT license](LICENSE).
+The upstream erase-and-check attribution is retained in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Source datasets and model
+weights are not redistributed. Figure attribution and source hashes are in
+[assets/figures/README.md](assets/figures/README.md).
+
+## Citation
+
+**Finite-Budget Pair-Span Search for Classifier-Based Prompt Screening.**
+Accepted at **WSDM 2027, Main Conference**; to appear.
+
+The complete author citation, DOI, and proceedings link will be added with the
+final publication metadata.
