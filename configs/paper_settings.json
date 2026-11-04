@@ -1,0 +1,51 @@
+{
+  "baseline_schedules": {
+    "gradec": "num_iters=50; threshold=0.5",
+    "greedy": "num_iters=20; threshold=0.5",
+    "mce": "mode=insertion; candidate_budget_cap=384; chunk=96",
+    "randec": "mode=insertion; ratio=0.1; no B384 cap; chunk=96; seed=42",
+    "random_pair_grid_seeds": [
+      1,
+      7,
+      21,
+      42,
+      99
+    ]
+  },
+  "classifier": {
+    "base_model": "distilbert-base-uncased",
+    "benign_class": 1,
+    "harmful_class": 0,
+    "max_length": 512,
+    "state_dict_sha256": "f566a38471cf4d3cc4adca08f24b38b55c84ba10979306bd4fc4a26549e255f0"
+  },
+  "conference": "WSDM 2027",
+  "pairspan": {
+    "coarse_keep": 36,
+    "decision_margin": 0.03,
+    "direct_cap": 2800,
+    "max_erase": 64,
+    "nms_iou": 0.7,
+    "num_adv": 2,
+    "pair_cap": 260,
+    "required_confirmations": 1,
+    "saliency_spans": 16,
+    "single_budget_cap": 192,
+    "single_budget_fraction": 0.25,
+    "single_keep": 28,
+    "total_query_cap": 384
+  },
+  "pdf_sha256": {
+    "main": "5001f9acf00fc41e46ba276bfb6f9e0bdbd92e338f6f2ffe792c8db799dfd63b",
+    "supplementary": "8d2330409c2ff8acff2ada4b96f767c154bcb5934ffec032f9c1851006eb9780"
+  },
+  "published_inference_environment": {
+    "cuda": "11.8",
+    "python": "3.10.13",
+    "torch": "2.4.1+cu118",
+    "transformers": "4.57.6"
+  },
+  "revision": "2026-11-04 content revision",
+  "title": "Finite-Budget Pair-Span Search for Classifier-Based Prompt Screening",
+  "verification_environment": "Recorded separately in REPRODUCTION_REPORT.json"
+}

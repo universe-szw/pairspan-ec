@@ -1,0 +1,511 @@
+[
+  {
+    "columns": [
+      "level",
+      "method",
+      "successful_attacks",
+      "recovered_attacks",
+      "conditional_tpr",
+      "ci_low",
+      "ci_high",
+      "mean_queries_all",
+      "mean_queries_conditional",
+      "mean_gradient_passes"
+    ],
+    "export_sha256": "9cca5e82e6349f658f390ef24a8401f78babf6cf144e7c720e1c134f618e2e77",
+    "label": "adaptive",
+    "path": "data/aggregate/adaptive.csv",
+    "rows": 12,
+    "source_sha256": "9cca5e82e6349f658f390ef24a8401f78babf6cf144e7c720e1c134f618e2e77"
+  },
+  {
+    "columns": [
+      "dataset",
+      "method_key",
+      "method",
+      "budget",
+      "seed",
+      "false_positives",
+      "n",
+      "fpr_pct",
+      "wilson_ci_low_pct",
+      "wilson_ci_high_pct",
+      "mean_queries",
+      "p95_queries",
+      "mean_gradient_passes",
+      "saliency_error_count",
+      "raw_mean_seconds"
+    ],
+    "export_sha256": "ba1b8492c7ac7cdb819e7e7255d06e661a233aa56d864c7769122510fd53fde9",
+    "label": "benign",
+    "path": "data/aggregate/benign.csv",
+    "rows": 9,
+    "source_sha256": "ba1b8492c7ac7cdb819e7e7255d06e661a233aa56d864c7769122510fd53fde9"
+  },
+  {
+    "columns": [
+      "dataset",
+      "method",
+      "false_positives",
+      "n",
+      "fpr_pct",
+      "wilson_low_pct",
+      "wilson_high_pct",
+      "mean_queries",
+      "max_queries"
+    ],
+    "export_sha256": "268b3d2a3e1ae46316f8ab76ad333fbb462391a780d3325bc2bc9342e89dd30e",
+    "label": "benign_full",
+    "path": "data/aggregate/benign_full.csv",
+    "rows": 48,
+    "source_sha256": "268b3d2a3e1ae46316f8ab76ad333fbb462391a780d3325bc2bc9342e89dd30e"
+  },
+  {
+    "columns": [
+      "dataset",
+      "first_positive_stage",
+      "count"
+    ],
+    "export_sha256": "94b1b4073fef470467647dd1aa7379514be5cab200dccae76fe9b7f4943fe910",
+    "label": "benign_stage",
+    "path": "data/aggregate/benign_stage.csv",
+    "rows": 6,
+    "source_sha256": "94b1b4073fef470467647dd1aa7379514be5cab200dccae76fe9b7f4943fe910"
+  },
+  {
+    "columns": [
+      "dataset",
+      "method",
+      "false_positives",
+      "n",
+      "fpr_pct",
+      "wilson_low_pct",
+      "wilson_high_pct",
+      "mean_queries"
+    ],
+    "export_sha256": "90c75bf24efd00a01428c2c11c0212e6c48f1a250d49ecffd5d709c8db376e20",
+    "label": "confirmation_fpr",
+    "path": "data/aggregate/confirmation_fpr.csv",
+    "rows": 6,
+    "source_sha256": "90c75bf24efd00a01428c2c11c0212e6c48f1a250d49ecffd5d709c8db376e20"
+  },
+  {
+    "columns": [
+      "method",
+      "base_bypass_n",
+      "recovered",
+      "conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "mean_queries_bypass"
+    ],
+    "export_sha256": "9cc09ee6e2c52556f91e51039a8801d96c18dfaee2fd7835fddda28e138caa17",
+    "label": "confirmation_recovery",
+    "path": "data/aggregate/confirmation_recovery.csv",
+    "rows": 2,
+    "source_sha256": "9cc09ee6e2c52556f91e51039a8801d96c18dfaee2fd7835fddda28e138caa17"
+  },
+  {
+    "columns": [
+      "direction",
+      "source_classifier",
+      "target_classifier",
+      "method",
+      "generated_attacks",
+      "target_bypass_n",
+      "target_bypass_rate_pct",
+      "recovered",
+      "conditional_recovery_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "mean_queries_bypass",
+      "mean_gradient_passes_bypass"
+    ],
+    "export_sha256": "e8a225ec8ca43aac607df573de966ff2be762327d89e59ed318b35767838a737",
+    "label": "cross",
+    "path": "data/aggregate/cross.csv",
+    "rows": 10,
+    "source_sha256": "4da1f9f40e92b299f2490cedf503891bee30f99a221eca0d7e0230fb35bbe5d4"
+  },
+  {
+    "columns": [
+      "direction",
+      "comparison",
+      "delta_points",
+      "cluster_ci_low_points",
+      "cluster_ci_high_points"
+    ],
+    "export_sha256": "a76adc53e885872a5a32518f7546b4defce40c7d7fc0be29c2d5e8ff5fed12db",
+    "label": "cross_deltas",
+    "path": "data/aggregate/cross_deltas.csv",
+    "rows": 6,
+    "source_sha256": "a76adc53e885872a5a32518f7546b4defce40c7d7fc0be29c2d5e8ff5fed12db"
+  },
+  {
+    "columns": [
+      "direction",
+      "method",
+      "t",
+      "target_bypass_n",
+      "recovered",
+      "conditional_recovery_pct"
+    ],
+    "export_sha256": "0904204370d4fefa1f06c6887cc302d36b635adbf535cea11511dad733a8bb78",
+    "label": "cross_per_length",
+    "path": "data/aggregate/cross_per_length.csv",
+    "rows": 100,
+    "source_sha256": "0904204370d4fefa1f06c6887cc302d36b635adbf535cea11511dad733a8bb78"
+  },
+  {
+    "columns": [
+      "config",
+      "base_bypass_n",
+      "recovered_attacks",
+      "conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "false_positives",
+      "safe_n",
+      "fpr_pct",
+      "fpr_wilson_low_pct",
+      "fpr_wilson_high_pct",
+      "mean_queries_all",
+      "mean_queries_bypass",
+      "mean_queries_safe"
+    ],
+    "export_sha256": "7c218b4a88a4486dd58e4c86012e3a25fd2a0a49a927b7c73c921234b1c665dd",
+    "label": "development",
+    "path": "data/aggregate/development.csv",
+    "rows": 4,
+    "source_sha256": "7c218b4a88a4486dd58e4c86012e3a25fd2a0a49a927b7c73c921234b1c665dd"
+  },
+  {
+    "columns": [
+      "config",
+      "base_bypass_n",
+      "recovered",
+      "conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "false_positives",
+      "safe_n",
+      "fpr_pct",
+      "fpr_wilson_low_pct",
+      "fpr_wilson_high_pct",
+      "mean_queries_bypass",
+      "mean_queries_safe",
+      "configured_cap"
+    ],
+    "export_sha256": "1989f9c7a8f61dde6a6647cdbeb5de1c0a1da553cdc2ec979fcab919d3cd83b3",
+    "label": "development_full",
+    "path": "data/aggregate/development_full.csv",
+    "rows": 23,
+    "source_sha256": "1989f9c7a8f61dde6a6647cdbeb5de1c0a1da553cdc2ec979fcab919d3cd83b3"
+  },
+  {
+    "columns": [
+      "comparison",
+      "delta_points",
+      "cluster_ci_low_points",
+      "cluster_ci_high_points"
+    ],
+    "export_sha256": "856c72ab48fb9d9f1f8d9a8637bc114965e531c782f7912bfec1065376137b7d",
+    "label": "development_full_deltas",
+    "path": "data/aggregate/development_full_deltas.csv",
+    "rows": 21,
+    "source_sha256": "856c72ab48fb9d9f1f8d9a8637bc114965e531c782f7912bfec1065376137b7d"
+  },
+  {
+    "columns": [
+      "source_mode",
+      "conditional_tpr",
+      "ci_low",
+      "ci_high",
+      "successful_attacks",
+      "recovered_attacks",
+      "mean_queries",
+      "mean_checked_candidates",
+      "mean_gradient_passes",
+      "mean_latency"
+    ],
+    "export_sha256": "d3c8f3b56aaf9a22224b5d63fabada3c6b69c6ea3e2049bd548f9c80ec2038db",
+    "label": "fallback_harmful",
+    "path": "data/aggregate/fallback_harmful.csv",
+    "rows": 3,
+    "source_sha256": "d3c8f3b56aaf9a22224b5d63fabada3c6b69c6ea3e2049bd548f9c80ec2038db"
+  },
+  {
+    "columns": [
+      "n",
+      "false_positives",
+      "fpr",
+      "wilson_ci_low",
+      "wilson_ci_high",
+      "mean_queries",
+      "mean_checked_candidates",
+      "mean_gradient_passes",
+      "mean_latency"
+    ],
+    "export_sha256": "5341fb2a7395c79523dee79750e899c12ec3c126dfdafec1048885f1201eb481",
+    "label": "fallback_safe",
+    "path": "data/aggregate/fallback_safe.csv",
+    "rows": 1,
+    "source_sha256": "5341fb2a7395c79523dee79750e899c12ec3c126dfdafec1048885f1201eb481"
+  },
+  {
+    "columns": [
+      "method_key",
+      "method",
+      "budget",
+      "seed",
+      "aggregate",
+      "total_attacks",
+      "base_bypass_n",
+      "conditional_hits",
+      "conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "overall_tpr_pct",
+      "mean_queries_all",
+      "mean_queries_bypass",
+      "p95_queries_all",
+      "cap_hit_rate_pct",
+      "mean_gradient_passes",
+      "saliency_error_count",
+      "raw_mean_seconds"
+    ],
+    "export_sha256": "dd448bc0d55c598f58e3114862d32a296ec6762f71108af7533e43144fc16bb8",
+    "label": "fresh",
+    "path": "data/aggregate/fresh.csv",
+    "rows": 37,
+    "source_sha256": "dd448bc0d55c598f58e3114862d32a296ec6762f71108af7533e43144fc16bb8"
+  },
+  {
+    "columns": [
+      "pairspan_key",
+      "comparison_key",
+      "budget",
+      "delta_points",
+      "cluster_ci_low_points",
+      "cluster_ci_high_points",
+      "ci_excludes_zero"
+    ],
+    "export_sha256": "db93a33331b685e28b7bea879910f9fcfd9580a45a18aa6e2d600adccfc37cb1",
+    "label": "fresh_deltas",
+    "path": "data/aggregate/fresh_deltas.csv",
+    "rows": 16,
+    "source_sha256": "db93a33331b685e28b7bea879910f9fcfd9580a45a18aa6e2d600adccfc37cb1"
+  },
+  {
+    "columns": [
+      "t",
+      "generated_attacks",
+      "base_bypass_n",
+      "base_bypass_rate_pct"
+    ],
+    "export_sha256": "b51a429948f9d9f3c319d5e37bb63784a408e82b7be82fcc46da89da396c4c40",
+    "label": "fresh_denominators",
+    "path": "data/aggregate/fresh_denominators.csv",
+    "rows": 15,
+    "source_sha256": "b51a429948f9d9f3c319d5e37bb63784a408e82b7be82fcc46da89da396c4c40"
+  },
+  {
+    "columns": [
+      "method_key",
+      "method",
+      "budget",
+      "seed",
+      "t",
+      "base_bypass_n",
+      "conditional_hits",
+      "conditional_tpr_pct",
+      "wilson_ci_low_pct",
+      "wilson_ci_high_pct",
+      "mean_queries_bypass"
+    ],
+    "export_sha256": "d82d5b5defdc8cc9a2089f6cf75467579aae0b57a1463e696a1a11ce6e7cfb77",
+    "label": "fresh_per_length",
+    "path": "data/aggregate/fresh_per_length.csv",
+    "rows": 540,
+    "source_sha256": "d82d5b5defdc8cc9a2089f6cf75467579aae0b57a1463e696a1a11ce6e7cfb77"
+  },
+  {
+    "columns": [
+      "t",
+      "idx",
+      "median_latency",
+      "median_queries",
+      "query_min",
+      "query_max",
+      "median_gradient_passes"
+    ],
+    "export_sha256": "ce19c2319e2964996073e69b1bd7450db5fd5c6c59317147b989021c9e53482a",
+    "label": "latency_pairspan_per_prompt",
+    "path": "data/aggregate/latency_pairspan_per_prompt.csv",
+    "rows": 636,
+    "source_sha256": "ce19c2319e2964996073e69b1bd7450db5fd5c6c59317147b989021c9e53482a"
+  },
+  {
+    "columns": [
+      "source_mode",
+      "branch_mode",
+      "conditional_tpr",
+      "ci_low",
+      "ci_high",
+      "successful_attacks",
+      "recovered_attacks",
+      "mean_queries",
+      "mean_checked_candidates",
+      "mean_gradient_passes",
+      "mean_latency"
+    ],
+    "export_sha256": "7346ed86e935ca08df1e97b2037f684aba0b3708b3cdb2af4c0a5412461ecbb3",
+    "label": "mismatch",
+    "path": "data/aggregate/mismatch.csv",
+    "rows": 9,
+    "source_sha256": "7346ed86e935ca08df1e97b2037f684aba0b3708b3cdb2af4c0a5412461ecbb3"
+  },
+  {
+    "columns": [
+      "attacks",
+      "base_bypasses",
+      "ci_high",
+      "ci_low",
+      "conditional_recovery",
+      "dataset",
+      "max_gradients",
+      "max_queries",
+      "mean_queries",
+      "n",
+      "positive",
+      "rate",
+      "recovered",
+      "replicates",
+      "wilson_high",
+      "wilson_low"
+    ],
+    "export_sha256": "000feb87b622f1ce9a842cba8d3485ff157bf262b6d1e953a5a540cd67a8010e",
+    "label": "no_saliency_csv",
+    "path": "data/aggregate/no_saliency_csv.csv",
+    "rows": 4,
+    "source_sha256": "000feb87b622f1ce9a842cba8d3485ff157bf262b6d1e953a5a540cd67a8010e"
+  },
+  {
+    "columns": [
+      "dataset",
+      "method_key",
+      "method",
+      "budget",
+      "seed",
+      "false_positives",
+      "n",
+      "fpr_pct",
+      "wilson_ci_low_pct",
+      "wilson_ci_high_pct",
+      "mean_queries",
+      "p95_queries",
+      "mean_gradient_passes",
+      "saliency_error_count",
+      "raw_mean_seconds"
+    ],
+    "export_sha256": "c09c90c28e39bbd3406c1d9e32ab2c43bd13b65f8c5c81f1b0d58a1f159eaa46",
+    "label": "protocol",
+    "path": "data/aggregate/protocol.csv",
+    "rows": 37,
+    "source_sha256": "c09c90c28e39bbd3406c1d9e32ab2c43bd13b65f8c5c81f1b0d58a1f159eaa46"
+  },
+  {
+    "columns": [
+      "dataset",
+      "method_key",
+      "method",
+      "budget",
+      "seeds",
+      "n_prompts",
+      "mean_fpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "seed_min_pct",
+      "seed_max_pct",
+      "interval_note"
+    ],
+    "export_sha256": "d26b1d931b019405ac86873780dd1b2c658925b74cfe07e17db9844f42a7ae2e",
+    "label": "protocol_random",
+    "path": "data/aggregate/protocol_random.csv",
+    "rows": 4,
+    "source_sha256": "d26b1d931b019405ac86873780dd1b2c658925b74cfe07e17db9844f42a7ae2e"
+  },
+  {
+    "columns": [
+      "method_key",
+      "method",
+      "budget",
+      "seeds",
+      "base_bypass_n",
+      "mean_conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "seed_min_pct",
+      "seed_max_pct"
+    ],
+    "export_sha256": "f9bb8cbcdb1c0baba5682c30d9075d1f06306c673d91d05928723f7e07897bbe",
+    "label": "random",
+    "path": "data/aggregate/random.csv",
+    "rows": 4,
+    "source_sha256": "f9bb8cbcdb1c0baba5682c30d9075d1f06306c673d91d05928723f7e07897bbe"
+  },
+  {
+    "columns": [
+      "method",
+      "generated_attacks",
+      "base_bypass_n",
+      "recovered",
+      "conditional_tpr_pct",
+      "cluster_ci_low_pct",
+      "cluster_ci_high_pct",
+      "mean_queries_bypass",
+      "mean_gradient_passes_bypass"
+    ],
+    "export_sha256": "cef8cd35f3c38eaae24126d21ba4103d4ed59424fb75d420db1ce4733682235b",
+    "label": "roberta",
+    "path": "data/aggregate/roberta.csv",
+    "rows": 13,
+    "source_sha256": "cef8cd35f3c38eaae24126d21ba4103d4ed59424fb75d420db1ce4733682235b"
+  },
+  {
+    "columns": [
+      "random_orders",
+      "mean_conditional_tpr_pct",
+      "min_conditional_tpr_pct",
+      "max_conditional_tpr_pct"
+    ],
+    "export_sha256": "ae52063591510187bf51ea0d67cd43c82a64b3e3877e445e412b5a0af7b9872a",
+    "label": "roberta_random",
+    "path": "data/aggregate/roberta_random.csv",
+    "rows": 1,
+    "source_sha256": "ae52063591510187bf51ea0d67cd43c82a64b3e3877e445e412b5a0af7b9872a"
+  },
+  {
+    "columns": [
+      "target_calibration_fpr",
+      "selected_threshold",
+      "calibration_n",
+      "calibration_fpr",
+      "calibration_fpr_ci_low",
+      "calibration_fpr_ci_high",
+      "test_n",
+      "test_fpr",
+      "test_fpr_ci_low",
+      "test_fpr_ci_high",
+      "insertion_base_bypass_n",
+      "insertion_conditional_tpr",
+      "insertion_conditional_tpr_ci_low",
+      "insertion_conditional_tpr_ci_high"
+    ],
+    "export_sha256": "ac25c3bdfe3dd14285d7f55bfd4da3cb016fdff91c02298fcdbb6abfb6a2ac78",
+    "label": "threshold",
+    "path": "data/aggregate/threshold.csv",
+    "rows": 3,
+    "source_sha256": "ac25c3bdfe3dd14285d7f55bfd4da3cb016fdff91c02298fcdbb6abfb6a2ac78"
+  }
+]

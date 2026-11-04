@@ -1,0 +1,164 @@
+{
+  "counts": [
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "base",
+      "n": 2380,
+      "positive_k": 0,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "pairspan_b384",
+      "n": 2380,
+      "positive_k": 1909,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "geometric_b384",
+      "n": 2380,
+      "positive_k": 1542,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "mce_b384",
+      "n": 2380,
+      "positive_k": 1601,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "random_b384_seed1",
+      "n": 2380,
+      "positive_k": 1310,
+      "seed": 1
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "random_b384_seed7",
+      "n": 2380,
+      "positive_k": 1340,
+      "seed": 7
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "random_b384_seed21",
+      "n": 2380,
+      "positive_k": 1307,
+      "seed": 21
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "random_b384_seed42",
+      "n": 2380,
+      "positive_k": 1319,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "random_b384_seed99",
+      "n": 2380,
+      "positive_k": 1326,
+      "seed": 99
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "randec_0p10",
+      "n": 2380,
+      "positive_k": 1745,
+      "seed": 42
+    },
+    {
+      "dataset_id": "harmbench2385",
+      "method_id": "greedy_20",
+      "n": 2380,
+      "positive_k": 1278,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "base",
+      "n": 500,
+      "positive_k": 59,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "pairspan_b384",
+      "n": 500,
+      "positive_k": 190,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "geometric_b384",
+      "n": 500,
+      "positive_k": 107,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "mce_b384",
+      "n": 500,
+      "positive_k": 157,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "random_b384_seed1",
+      "n": 500,
+      "positive_k": 109,
+      "seed": 1
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "random_b384_seed7",
+      "n": 500,
+      "positive_k": 105,
+      "seed": 7
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "random_b384_seed21",
+      "n": 500,
+      "positive_k": 106,
+      "seed": 21
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "random_b384_seed42",
+      "n": 500,
+      "positive_k": 109,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "random_b384_seed99",
+      "n": 500,
+      "positive_k": 109,
+      "seed": 99
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "randec_0p10",
+      "n": 500,
+      "positive_k": 112,
+      "seed": 42
+    },
+    {
+      "dataset_id": "sharegpt500",
+      "method_id": "greedy_20",
+      "n": 500,
+      "positive_k": 284,
+      "seed": 42
+    }
+  ],
+  "meaning": "HarmBench positive counts restricted to original 2380 bypass; benign all500",
+  "source_files": {
+    "outputs\\revision_v2_phase2_full\\analysis\\revision_v2_phase2_benign_full\\benign_full_summary.csv": "268b3d2a3e1ae46316f8ab76ad333fbb462391a780d3325bc2bc9342e89dd30e",
+    "outputs\\revision_v2_phase2_full\\verified_results\\revision_v2_verified\\fresh_main_summary.csv": "dd448bc0d55c598f58e3114862d32a296ec6762f71108af7533e43144fc16bb8"
+  },
+  "source_sha256": "ad067e80011d67b2fee26057f9d92b55abcc20bd78c6034aae354eb7cdf4fcf8"
+}

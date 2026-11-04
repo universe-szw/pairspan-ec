@@ -1,0 +1,5 @@
+dataset,method_key,method,budget,seeds,n_prompts,mean_fpr_pct,cluster_ci_low_pct,cluster_ci_high_pct,seed_min_pct,seed_max_pct,interval_note
+protocol_safe,random_b128_five_orders,RandomPairGrid (5 fixed orders),128,1;7;21;42;99,120,0.0,0.0,0.0,0.0,0.0,prompt bootstrap over the mean of five prespecified orders; individual rows use Wilson CIs
+protocol_safe,random_b256_five_orders,RandomPairGrid (5 fixed orders),256,1;7;21;42;99,120,0.0,0.0,0.0,0.0,0.0,prompt bootstrap over the mean of five prespecified orders; individual rows use Wilson CIs
+protocol_safe,random_b384_five_orders,RandomPairGrid (5 fixed orders),384,1;7;21;42;99,120,0.0,0.0,0.0,0.0,0.0,prompt bootstrap over the mean of five prespecified orders; individual rows use Wilson CIs
+protocol_safe,random_b768_five_orders,RandomPairGrid (5 fixed orders),768,1;7;21;42;99,120,0.0,0.0,0.0,0.0,0.0,prompt bootstrap over the mean of five prespecified orders; individual rows use Wilson CIs

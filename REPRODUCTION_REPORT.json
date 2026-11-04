@@ -1,0 +1,60 @@
+{
+  "core_function_identity": "34 function bodies match the paper implementation exactly",
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.11.2",
+    "torch": "2.5.1+cu121",
+    "transformers": "4.47.0"
+  },
+  "full_optional_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests_run": 20
+  },
+  "license": "Upstream MIT notice preserved; extension attribution included; no third-party datasets or weights redistributed.",
+  "not_verified": [
+    "Independent reproduction of restricted input/model inference",
+    "Fresh hardware latency measurements",
+    "Raw-label ground truth",
+    "All supplementary intervals from per-request observations"
+  ],
+  "numeric_reproduction": {
+    "evaluation": {
+      "base_positive_filtering.csv": {
+        "compared_cells": 1728,
+        "rows": 216
+      },
+      "operating_points.csv": {
+        "compared_cells": 6048,
+        "rows": 216
+      },
+      "paired_cluster_deltas.csv": {
+        "compared_cells": 510,
+        "rows": 30
+      },
+      "per_length_calibrated.csv": {
+        "compared_cells": 10800,
+        "rows": 1080
+      }
+    },
+    "scope": "Recomputation from original numeric measurements; no fresh model inference.",
+    "status": "passed",
+    "threshold_entries_verified": 55,
+    "timing": {
+      "measurements": 15900,
+      "methods": 5,
+      "scope": "Statistics of archived synchronized timing runs; not a new hardware benchmark."
+    }
+  },
+  "numpy_only_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 9,
+    "tests_run": 20
+  },
+  "privacy_check": "Whitelist export and automated scan passed; original text, prompt hashes, token IDs, credentials, private addresses and user paths excluded.",
+  "release_date": "2026-11-04",
+  "standalone_check": "Extracted ZIP into a temporary directory; isolated interpreter; no parent-project imports.",
+  "status": "passed"
+}

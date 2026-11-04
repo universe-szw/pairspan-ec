@@ -1,0 +1,2 @@
+n,false_positives,fpr,wilson_ci_low,wilson_ci_high,mean_queries,mean_checked_candidates,mean_gradient_passes,mean_latency
+120,3,2.5,0.8538174769902228,7.09300333278661,306.375,306.375,1.0,0.9681659242836759

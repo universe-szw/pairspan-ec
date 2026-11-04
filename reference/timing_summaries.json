@@ -1,0 +1,92 @@
+{
+  "base": {
+    "mean_prompt_median_gradient_passes": 0.0,
+    "mean_prompt_median_latency": 0.003470619676236368,
+    "mean_prompt_median_queries": 1.0,
+    "n_prompts": 636,
+    "p50_prompt_median_latency": 0.0034510651603341103,
+    "p95_prompt_median_latency": 0.003683370305225253,
+    "p99_prompt_median_latency": 0.003709985874593258,
+    "repeat_mean_latencies": [
+      0.0034815330283845185,
+      0.003468986312161733,
+      0.0034675723155550425,
+      0.003474967009475771,
+      0.0034764654401385183
+    ],
+    "repeat_mean_range": 1.3960712829475929e-05,
+    "repeat_mean_relative_range": 0.004018737860780551
+  },
+  "geometric_b384": {
+    "mean_prompt_median_gradient_passes": 0.0,
+    "mean_prompt_median_latency": 1.2459356133846577,
+    "mean_prompt_median_queries": 274.17138364779873,
+    "n_prompts": 636,
+    "p50_prompt_median_latency": 1.3408770058304071,
+    "p95_prompt_median_latency": 2.517235728679225,
+    "p99_prompt_median_latency": 2.8105410035699605,
+    "repeat_mean_latencies": [
+      1.2523054933137372,
+      1.2502576040115747,
+      1.2494806051122482,
+      1.2506248915316127,
+      1.2415915502662882
+    ],
+    "repeat_mean_range": 0.010713943047448993,
+    "repeat_mean_relative_range": 0.008579033224088067
+  },
+  "greedy20": {
+    "mean_prompt_median_gradient_passes": 0.0,
+    "mean_prompt_median_latency": 0.4882515991683581,
+    "mean_prompt_median_queries": 970.5330188679245,
+    "n_prompts": 636,
+    "p50_prompt_median_latency": 0.3099904051050544,
+    "p95_prompt_median_latency": 1.398934357566759,
+    "p99_prompt_median_latency": 1.5609759116545312,
+    "repeat_mean_latencies": [
+      0.48848136177626234,
+      0.488339615115931,
+      0.4882167485021289,
+      0.4882004940062293,
+      0.4881166749745139
+    ],
+    "repeat_mean_range": 0.00036468680174844836,
+    "repeat_mean_relative_range": 0.0007468942810991852
+  },
+  "mce_b384": {
+    "mean_prompt_median_gradient_passes": 0.0,
+    "mean_prompt_median_latency": 0.7014011865783389,
+    "mean_prompt_median_queries": 213.58490566037736,
+    "n_prompts": 636,
+    "p50_prompt_median_latency": 0.3304284638725221,
+    "p95_prompt_median_latency": 1.300659379689023,
+    "p99_prompt_median_latency": 1.317538384301588,
+    "repeat_mean_latencies": [
+      0.7095342703081621,
+      0.7108001690094342,
+      0.7053279774746735,
+      0.6970723894579957,
+      0.6963530337604923
+    ],
+    "repeat_mean_range": 0.014447135248941922,
+    "repeat_mean_relative_range": 0.020526818178113106
+  },
+  "pairspan_b384": {
+    "mean_prompt_median_gradient_passes": 1.0,
+    "mean_prompt_median_latency": 1.2517247153548583,
+    "mean_prompt_median_queries": 272.4685534591195,
+    "n_prompts": 636,
+    "p50_prompt_median_latency": 1.2196805803105235,
+    "p95_prompt_median_latency": 2.6555352406576276,
+    "p99_prompt_median_latency": 2.9523551156278693,
+    "repeat_mean_latencies": [
+      1.2565718024717234,
+      1.2512088908078793,
+      1.25216087737888,
+      1.2529079591673828,
+      1.2540105073273462
+    ],
+    "repeat_mean_range": 0.005362911663844061,
+    "repeat_mean_relative_range": 0.004278786850232753
+  }
+}
