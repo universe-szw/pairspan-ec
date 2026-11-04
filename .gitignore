@@ -6,4 +6,4 @@ decisions.jsonl
 *.pt
 *.bin
 *.safetensors
-prompts.txt
+/prompts.txt

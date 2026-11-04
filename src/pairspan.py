@@ -770,16 +770,17 @@ def pairspan_ec_trace(
 
 
 def pairspan_ec(prompt, pipeline, tokenizer, model, **kwargs):
-    """Return the PairSpan-EC decision from its canonical trace path."""
-    return bool(
-        pairspan_ec_trace(
-            prompt,
-            pipeline,
-            tokenizer,
-            model,
-            **kwargs,
-        )["harmful"]
+    """Return the canonical decision, raising if requested saliency failed."""
+    trace = pairspan_ec_trace(
+        prompt,
+        pipeline,
+        tokenizer,
+        model,
+        **kwargs,
     )
+    if "saliency_error_type" in trace:
+        raise RuntimeError(f'Saliency failed: {trace["saliency_error_type"]}')
+    return bool(trace["harmful"])
 
 
 def _direct_pair_grid(prompt_tokens, tokenizer, max_erase=64, num_adv=2):

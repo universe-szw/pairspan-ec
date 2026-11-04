@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  Please cite the WSDM paper for the research method. The software metadata
+  identifies the known code maintainer; preferred-citation lists the paper authors.
+type: software
+title: "PairSpan-EC: code and numerical records"
+authors:
+  - family-names: Shen
+    given-names: Zhewei
+    orcid: https://orcid.org/0009-0009-2262-8863
+version: 1.0.0-rc.1
+repository-code: https://github.com/universe-szw/pairspan-ec
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Finite-Budget Pair-Span Search for Classifier-Based Prompt Screening"
+  authors:
+    - family-names: Shen
+      given-names: Zhewei
+      orcid: https://orcid.org/0009-0009-2262-8863
+    - family-names: Yuan
+      given-names: Sha
+  year: 2027
+  collection-title: "Proceedings of the 20th ACM International Conference on Web Search and Data Mining"
+  notes: "Accepted at WSDM 2027, Main Conference; to appear."

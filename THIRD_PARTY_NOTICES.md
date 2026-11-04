@@ -2,6 +2,12 @@
 
 The underlying erase-and-check code derives from **Certifying LLM Safety
 against Adversarial Prompting**, Aounon Kumar et al., arXiv:2309.02705.
+Upstream project: https://github.com/aounon/certified-llm-safety
+and paper: https://arxiv.org/abs/2309.02705.
+An upstream Git commit was not recorded in the inherited source snapshot;
+`provenance/code_identity.json` instead records the exact paper-project source
+hashes and the exported function identities. These hashes identify the local
+paper implementation, not a claimed upstream Git revision.
 The upstream MIT notice is retained without removing its copyright holder in
 `LICENSE`. PairSpan-EC extensions and release-specific analysis utilities are
 distributed under the same MIT terms by the PairSpan-EC contributors.

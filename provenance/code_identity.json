@@ -1,5 +1,5 @@
 {
-  "export": "exact function bodies; only module imports/layout changed",
+  "export": "33 paper function bodies unchanged; boolean API wrapper adds explicit saliency failure reporting",
   "function_sha256": {
     "_append_limited_verbose_event": "227003a9ca07d3f2565427ed5a2e2b2a90935e1f1816f2e2bbe946fa450730ef",
     "_balanced_start_order": "bf0998784ca4f2b2a66370d9e743d2fa39221f2b2f7f0622a3a4fd430f0896da",
@@ -32,9 +32,15 @@
     "geometric_prefix_ec_trace": "8dca58db595be1a4b2dbc8801797f4770a918bc4a2fb120151a302857a9120e5",
     "grad_ec_trace": "4ca647f9cd53805bcb18433ba27aaaa8d262be6e4b85cce746a7bf67a224d6d4",
     "greedy_ec_trace": "cdda7a0bfcf2bd800082585c00b13b336d4a94f1109b40fccd257e344860d955",
-    "pairspan_ec": "f0f841879e3ed2b8737cdabc938ef7c6401cf20dab63e4b9ff140f45afab1715",
+    "pairspan_ec": "3d30bf178e72f523f67626addbbfe881cc697b841e9469215a68247beee324dd",
     "pairspan_ec_trace": "88b437e5b2bd1f9b68b4d5e9178d1f2c1500dc7d6e2bc8a94176d9ab39807010",
     "random_pair_grid_ec_trace": "404230c125e587529fafd04d788292be3daf84cacb59a5cc82e1cd7baedf5fdb"
+  },
+  "release_overrides": {
+    "pairspan_ec": {
+      "paper_function_sha256": "f0f841879e3ed2b8737cdabc938ef7c6401cf20dab63e4b9ff140f45afab1715",
+      "reason": "Raise RuntimeError when the canonical trace reports saliency_error_type; successful decisions and the trace/search implementation are unchanged."
+    }
   },
   "saliency_source_sha256": "62c01a5698c3b7b8f9f0043886b30be00412985d2a35d41eeaa5262347f0e7ca",
   "source_module_sha256": "e62257d391a55a1a74acfcd021f4c0d1aa34f4487ea3e589e3e13d2e4586a78c"

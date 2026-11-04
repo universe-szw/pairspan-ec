@@ -1,0 +1,6 @@
+# Direct dependency pins for the Python 3.11 verification environment.
+# Install the CPU build of torch first as documented in ENVIRONMENT.md.
+numpy==2.2.6
+torch==2.5.1
+transformers==4.47.0
+safetensors==0.4.5

@@ -1,7 +1,9 @@
 """Public numeric validation; no private files, models, network, or GPU."""
 
 import copy
+import ast
 import gzip
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -82,6 +84,15 @@ class NumericTests(unittest.TestCase):
     def test_wilson_extremes(self):
         self.assertAlmostEqual(evaluate.wilson(0, 500)[0], 0)
         self.assertAlmostEqual(evaluate.wilson(500, 500)[1], 1)
+
+    def test_exported_function_identities(self):
+        identity = json.loads((ROOT / "provenance/code_identity.json").read_text())
+        source = (ROOT / "src/pairspan.py").read_text(encoding="utf-8")
+        functions = {node.name: ast.get_source_segment(source, node)
+                     for node in ast.parse(source).body if isinstance(node, ast.FunctionDef)}
+        self.assertEqual(set(functions), set(identity["function_sha256"]))
+        for name, expected in identity["function_sha256"].items():
+            self.assertEqual(hashlib.sha256(functions[name].encode()).hexdigest(), expected, name)
 
 
 if __name__ == "__main__":

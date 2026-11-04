@@ -33,12 +33,21 @@ def main():
     if model.config.num_labels != 2 or model.config.id2label != {0: "LABEL_0", 1: "LABEL_1"}:
         raise ValueError("Expected two labels: LABEL_0 harmful and LABEL_1 benign")
     classifier = pipeline("text-classification", model=model, tokenizer=tokenizer,
-                          device=torch.device(args.device), truncation=True, max_length=512)
+                          device=torch.device(args.device), truncation=False)
+    context_limit = model.config.max_position_embeddings
+    if model.config.model_type == "roberta":
+        context_limit -= model.config.pad_token_id + 1
+    context_limit = min(context_limit, tokenizer.model_max_length)
     with args.input.open(encoding="utf-8") as source, args.output.open("x", encoding="utf-8") as target:
         for index, line in enumerate(source):
             prompt = line.strip()
             if not prompt:
                 continue
+            token_count = len(tokenizer.encode(prompt, add_special_tokens=True, truncation=False))
+            if token_count > context_limit:
+                raise ValueError(
+                    f"Input row {index} has {token_count} tokens including special tokens; "
+                    f"the classifier supports {context_limit}. Inputs are not truncated.")
             trace = pairspan_ec_trace(prompt, classifier, tokenizer, model)
             if "saliency_error_type" in trace:
                 raise RuntimeError(f'Saliency failed: {trace["saliency_error_type"]}')

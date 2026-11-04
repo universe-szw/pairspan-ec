@@ -1,16 +1,19 @@
 {
-  "core_function_identity": "34 function bodies match the paper implementation exactly",
+  "core_function_identity": "33 paper function bodies unchanged; the boolean wrapper reports saliency failure explicitly. All 34 exported function hashes verified; the wrapper override is documented in provenance/code_identity.json.",
   "environment": {
     "numpy": "2.2.6",
     "python": "3.11.2",
-    "torch": "2.5.1+cu121",
-    "transformers": "4.47.0"
+    "torch": "2.5.1+cpu",
+    "transformers": "4.47.0",
+    "safetensors": "0.4.5",
+    "platform": "Windows x86_64",
+    "installation": "Fresh Python 3.11 virtual environment; CPU wheel plus requirements-inference-verified.txt; pip check passed."
   },
   "full_optional_tests": {
     "errors": 0,
     "failures": 0,
     "skipped": 0,
-    "tests_run": 20
+    "tests_run": 25
   },
   "license": "Upstream MIT notice preserved; extension attribution included; no third-party datasets or weights redistributed.",
   "not_verified": [
@@ -19,7 +22,13 @@
     "Raw-label ground truth",
     "All supplementary intervals from per-request observations"
   ],
+  "publication_status": "Local release candidate 1.0.0-rc.1; no remote push, tag, public visibility change, hosted CI result, or archive DOI is claimed.",
+  "metadata_validation": {
+    "citation": "Passed official CFF 1.2.0 JSON Schema validation",
+    "workflow": "YAML parsed; numeric and inference jobs configured. Hosted execution not performed."
+  },
   "numeric_reproduction": {
+    "files_hash_verified": 73,
     "evaluation": {
       "base_positive_filtering.csv": {
         "compared_cells": 1728,
@@ -50,11 +59,12 @@
   "numpy_only_tests": {
     "errors": 0,
     "failures": 0,
-    "skipped": 9,
-    "tests_run": 20
+    "skipped": 13,
+    "tests_run": 25,
+    "environment": "Separate fresh Python 3.11 virtual environment with only NumPy 2.2.6; 12 numerical tests passed, 13 optional inference tests skipped."
   },
-  "privacy_check": "Whitelist export and automated scan passed; original text, prompt hashes, token IDs, credentials, private addresses and user paths excluded.",
-  "release_date": "2026-11-04",
-  "standalone_check": "Extracted ZIP into a temporary directory; isolated interpreter; no parent-project imports.",
+  "privacy_check": "Original whitelist-exported measurements unchanged; no original prompt text, token IDs, model weights, credentials, or private server paths added. Harmless synthetic examples and author citation metadata are included.",
+  "verification_date": "2026-11-04",
+  "standalone_check": "ZIP extracted into a separate directory; isolated (-I) interpreters passed numerical recomputation and both CLI smoke/context-boundary tests with no parent-project imports. Final archive contents verified against the source manifest.",
   "status": "passed"
 }

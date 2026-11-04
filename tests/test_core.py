@@ -94,6 +94,34 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(result["gradient_pass_count"], 1)
         self.assertEqual(result["classifier_query_count"], len(classifier.checked))
 
+    def test_boolean_api_reports_saliency_failure(self):
+        text = "abcdefghijklmnopqrstuvwxyz0123456789"
+        with patch.object(policy, "get_risk_heatmap", side_effect=RuntimeError("test failure")):
+            result = policy.pairspan_ec_trace(text, Classifier(text, "none"), Tokenizer(), None,
+                                              total_query_cap=64)
+            self.assertEqual(result["saliency_error_type"], "RuntimeError")
+            with self.assertRaisesRegex(RuntimeError, "Saliency failed: RuntimeError"):
+                policy.pairspan_ec(text, Classifier(text, "none"), Tokenizer(), None,
+                                   total_query_cap=64)
+
+    def test_boolean_api_allows_explicit_no_saliency(self):
+        text = "abcdefghijklmnopqrstuvwxyz0123456789"
+        with patch.object(policy, "get_risk_heatmap", side_effect=AssertionError("not requested")):
+            result = policy.pairspan_ec(text, Classifier(text, "none"), Tokenizer(), None,
+                                       total_query_cap=64, use_saliency=False)
+        self.assertFalse(result)
+
+    def test_boolean_api_matches_successful_trace(self):
+        import numpy as np
+        text = "abcdefghijklmnopqrstuvwxyz0123456789"
+        with patch.object(policy, "get_risk_heatmap", return_value=(np.arange(len(text)), list(text))):
+            for mode in ("base", "none", "hit"):
+                trace = policy.pairspan_ec_trace(text, Classifier(text, mode), Tokenizer(), None,
+                                                 total_query_cap=64)
+                result = policy.pairspan_ec(text, Classifier(text, mode), Tokenizer(), None,
+                                           total_query_cap=64)
+                self.assertEqual(result, trace["harmful"])
+
     def test_actual_gradient_saliency_with_tiny_local_model(self):
         import torch
         from types import SimpleNamespace

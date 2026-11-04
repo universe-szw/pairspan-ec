@@ -16,7 +16,8 @@
     "base_model": "distilbert-base-uncased",
     "benign_class": 1,
     "harmful_class": 0,
-    "max_length": 512,
+    "inference_truncation": false,
+    "overlength_input_policy": "reject; do not silently truncate",
     "state_dict_sha256": "f566a38471cf4d3cc4adca08f24b38b55c84ba10979306bd4fc4a26549e255f0"
   },
   "conference": "WSDM 2027",
@@ -30,6 +31,7 @@
     "pair_cap": 260,
     "required_confirmations": 1,
     "saliency_spans": 16,
+    "max_llm_sequence_len": 512,
     "single_budget_cap": 192,
     "single_budget_fraction": 0.25,
     "single_keep": 28,

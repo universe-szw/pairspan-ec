@@ -127,7 +127,7 @@ Run the core policy on your own local classifier and inputs:
 
 ```text
 python -m pip install -r requirements-inference.txt
-python run_inference.py --model-dir /path/to/local/classifier --input prompts.txt --output decisions.jsonl
+python run_inference.py --model-dir /path/to/local/classifier --input examples/prompts.txt --output decisions.jsonl
 ```
 
 The classifier directory must contain local Hugging Face tokenizer files and
@@ -135,10 +135,20 @@ safetensors weights, with `LABEL_0` meaning harmful and `LABEL_1` benign.
 No model downloads or API calls are made. The runner outputs numeric decisions
 and costs without saving input or deletion text.
 
-The paper defaults to 512-token truncation, two insertion spans, maximum span
-length 64, and 384 classifier evaluations. Settings and the original checkpoint
-fingerprint are in [configs/paper_settings.json](configs/paper_settings.json).
-Results on a different checkpoint or input population can differ.
+The paper uses two insertion spans, maximum span length 64, and 384 classifier
+evaluations. Classifier inference does not automatically truncate inputs; the
+CLI rejects inputs exceeding the model context, counting special tokens.
+Only the saliency gradient pass truncates at 512 positions. Settings and the
+original checkpoint fingerprint are in
+[configs/paper_settings.json](configs/paper_settings.json).
+The original fine-tuned checkpoint is not distributed, and its fingerprint is
+an identity check, not a model download or training recipe. Running the policy
+on another compatible checkpoint does not reproduce the paper's measured rates.
+
+The boolean `pairspan_ec` API raises if requested saliency fails. The diagnostic
+`pairspan_ec_trace` API preserves the original trace behavior and reports
+`saliency_error_type`; callers must check that field before using its decision.
+Set `use_saliency=False` only when deliberately running the no-saliency variant.
 
 ## Development
 
@@ -152,6 +162,11 @@ creates a tiny random local classifier and harmless synthetic inputs. It does
 not require the paper's model or data. Release verification is recorded in
 [REPRODUCTION_REPORT.json](REPRODUCTION_REPORT.json).
 
+See [ENVIRONMENT.md](ENVIRONMENT.md) for a pinned verification installation and
+[RELEASE.md](RELEASE.md) for release scope and publication steps. The GitHub
+Actions workflow checks numerical reproduction and CPU inference; its hosted
+status depends on the actual workflow runs, not the local report.
+
 ## License and Reuse
 
 Code and numerical measurement exports are distributed under the [MIT license](LICENSE).
@@ -162,8 +177,8 @@ weights are not redistributed. Figure attribution and source hashes are in
 
 ## Citation
 
-**Finite-Budget Pair-Span Search for Classifier-Based Prompt Screening.**
-Accepted at **WSDM 2027, Main Conference**; to appear.
+Zhewei Shen and Sha Yuan. **Finite-Budget Pair-Span Search for Classifier-Based
+Prompt Screening.** Accepted at **WSDM 2027, Main Conference**; to appear.
 
-The complete author citation, DOI, and proceedings link will be added with the
-final publication metadata.
+Machine-readable paper and software metadata are in [CITATION.cff](CITATION.cff).
+The DOI and proceedings link will be added when assigned.
