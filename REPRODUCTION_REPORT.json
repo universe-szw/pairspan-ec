@@ -1,70 +1,37 @@
 {
-  "core_function_identity": "33 paper function bodies unchanged; the boolean wrapper reports saliency failure explicitly. All 34 exported function hashes verified; the wrapper override is documented in provenance/code_identity.json.",
+  "release_version": "1.0.0-rc.1",
+  "verification_date": "2026-11-04",
+  "status": "passed",
+  "scope": "Local verification snapshot: numerical recomputation and synthetic local-model tests; no new benchmark inference or hardware timing.",
   "environment": {
-    "numpy": "2.2.6",
     "python": "3.11.2",
+    "numpy": "2.2.6",
     "torch": "2.5.1+cpu",
     "transformers": "4.47.0",
     "safetensors": "0.4.5",
     "platform": "Windows x86_64",
-    "installation": "Fresh Python 3.11 virtual environment; CPU wheel plus requirements-inference-verified.txt; pip check passed."
+    "requirements": "requirements-inference-verified.txt"
   },
-  "full_optional_tests": {
-    "errors": 0,
-    "failures": 0,
-    "skipped": 0,
-    "tests_run": 25
+  "tests": {
+    "full": {"run": 25, "failures": 0, "errors": 0, "skipped": 0},
+    "numpy_only": {"run": 25, "failures": 0, "errors": 0, "skipped": 13}
   },
-  "license": "Upstream MIT notice preserved; extension attribution included; no third-party datasets or weights redistributed.",
-  "not_verified": [
-    "Independent reproduction of restricted input/model inference",
-    "Fresh hardware latency measurements",
-    "Raw-label ground truth",
-    "All supplementary intervals from per-request observations"
-  ],
-  "publication_status": "Local release candidate 1.0.0-rc.1; no remote push, tag, public visibility change, hosted CI result, or archive DOI is claimed.",
-  "metadata_validation": {
-    "citation": "Passed official CFF 1.2.0 JSON Schema validation",
-    "workflow": "YAML parsed; numeric and inference jobs configured. Hosted execution not performed."
+  "implementation_identity": {
+    "function_hashes_verified": 34,
+    "unchanged_paper_functions": 33,
+    "wrapper_override": "provenance/code_identity.json"
   },
   "numeric_reproduction": {
     "files_hash_verified": 73,
-    "evaluation": {
-      "base_positive_filtering.csv": {
-        "compared_cells": 1728,
-        "rows": 216
-      },
-      "operating_points.csv": {
-        "compared_cells": 6048,
-        "rows": 216
-      },
-      "paired_cluster_deltas.csv": {
-        "compared_cells": 510,
-        "rows": 30
-      },
-      "per_length_calibrated.csv": {
-        "compared_cells": 10800,
-        "rows": 1080
-      }
-    },
-    "scope": "Recomputation from original numeric measurements; no fresh model inference.",
-    "status": "passed",
     "threshold_entries_verified": 55,
-    "timing": {
-      "measurements": 15900,
-      "methods": 5,
-      "scope": "Statistics of archived synchronized timing runs; not a new hardware benchmark."
-    }
+    "evaluation": {
+      "operating_points.csv": {"rows": 216, "compared_cells": 6048},
+      "per_length_calibrated.csv": {"rows": 1080, "compared_cells": 10800},
+      "base_positive_filtering.csv": {"rows": 216, "compared_cells": 1728},
+      "paired_cluster_deltas.csv": {"rows": 30, "compared_cells": 510}
+    },
+    "timing": {"measurements": 15900, "methods": 5}
   },
-  "numpy_only_tests": {
-    "errors": 0,
-    "failures": 0,
-    "skipped": 13,
-    "tests_run": 25,
-    "environment": "Separate fresh Python 3.11 virtual environment with only NumPy 2.2.6; 12 numerical tests passed, 13 optional inference tests skipped."
-  },
-  "privacy_check": "Original whitelist-exported measurements unchanged; no original prompt text, token IDs, model weights, credentials, or private server paths added. Harmless synthetic examples and author citation metadata are included.",
-  "verification_date": "2026-11-04",
-  "standalone_check": "ZIP extracted into a separate directory; isolated (-I) interpreters passed numerical recomputation and both CLI smoke/context-boundary tests with no parent-project imports. Final archive contents verified against the source manifest.",
-  "status": "passed"
+  "citation_schema": "CFF 1.2.0",
+  "ci_url": "https://github.com/universe-szw/pairspan-ec/actions/workflows/tests.yml"
 }

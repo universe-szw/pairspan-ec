@@ -1,7 +1,8 @@
-"""Paper algorithms extracted without changing function bodies.
+"""Paper EC search policies and release API wrappers.
 
-Only the dependencies of the published EC policies are included. Candidate
-evaluation retains the paper's stage/prefix schedule, not a first-hit rewrite.
+Canonical trace/search functions retain the paper implementation. Release API
+changes are documented in provenance/code_identity.json. Candidate evaluation
+retains the paper's stage/prefix schedule; verbose diagnostics are off by default.
 """
 import hashlib
 import itertools

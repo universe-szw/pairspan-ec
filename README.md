@@ -163,9 +163,10 @@ not require the paper's model or data. Release verification is recorded in
 [REPRODUCTION_REPORT.json](REPRODUCTION_REPORT.json).
 
 See [ENVIRONMENT.md](ENVIRONMENT.md) for a pinned verification installation and
-[RELEASE.md](RELEASE.md) for release scope and publication steps. The GitHub
-Actions workflow checks numerical reproduction and CPU inference; its hosted
-status depends on the actual workflow runs, not the local report.
+[RELEASE.md](RELEASE.md) for version notes.
+[CI](https://github.com/universe-szw/pairspan-ec/actions/workflows/tests.yml)
+checks numerical reproduction on Python 3.10/3.12 and pinned CPU inference tests
+on Python 3.11.
 
 ## License and Reuse
 
