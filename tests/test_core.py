@@ -85,6 +85,35 @@ class CoreTests(unittest.TestCase):
             self.assertEqual(result["classifier_query_count"], len(classifier.checked))
             self.assertLessEqual(len(classifier.checked), 32)
 
+    def test_random_pair_order_is_request_deterministic(self):
+        text = "abcdefghijklmnopqrstuvwxyz0123456789"
+        sequences = []
+        for prompt in (text, text[::-1], text):
+            classifier = Classifier(prompt, "none")
+            policy.random_pair_grid_ec_trace(prompt, classifier, Tokenizer(),
+                                             candidate_budget=32, seed=42)
+            sequences.append(classifier.checked)
+        self.assertEqual(sequences[0], sequences[2])
+        classifier = Classifier(text, "none")
+        policy.random_pair_grid_ec_trace(text, classifier, Tokenizer(), candidate_budget=32, seed=7)
+        self.assertNotEqual(sequences[0], classifier.checked)
+
+    def test_verbose_diagnostics_preserve_decisions_and_costs(self):
+        text = "abcdefghijklmnopqrstuvwxyz0123456789"
+        for runner, kwargs in (
+            (policy.pairspan_ec_trace, dict(model=None, use_saliency=False, total_query_cap=32)),
+            (policy.geometric_prefix_ec_trace, dict(candidate_budget=32)),
+            (policy.random_pair_grid_ec_trace, dict(candidate_budget=32)),
+        ):
+            plain = runner(text, Classifier(text, "none"), Tokenizer(), **kwargs)
+            verbose = runner(text, Classifier(text, "none"), Tokenizer(), verbose_trace=True, **kwargs)
+            events = verbose.pop("verbose_events")
+            self.assertEqual(plain, verbose)
+            self.assertTrue(events)
+            for event in events:
+                self.assertEqual(set(event), {"event_type", "stage", "score", "margin", "spans",
+                                 "span_count", "deletion_token_count", "deletion_ratio", "marker_category"})
+
     def test_saliency_proposals_counted_separately(self):
         import numpy as np
         text = "abcdefghijklmnopqrstuvwxyz0123456789"

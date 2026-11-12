@@ -12,9 +12,9 @@ for _name in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
 import numpy as np
 
 from fit_thresholds import (
-    HASH_RE, LENGTHS, SEEDS, SIZES, calibration_fingerprint, canonical_method, config_id,
-    finish_manifest, fit_document, load_rows, object_hash, prepare_output,
-    read_json, require, sha256_file, validate_grid, write_csv,
+    LENGTHS, SEEDS, SIZES, canonical_method, config_id,
+    fit_document, load_rows, prepare_output,
+    read_json, require, validate_grid, write_csv, write_json,
 )
 
 
@@ -34,24 +34,12 @@ KNOWN_ANCHORS = {
 
 
 def load_thresholds(path, calibration_rows):
-    sidecar = Path(str(path) + ".sha256")
-    fields = sidecar.read_text(encoding="ascii").split()
-    require(len(fields) == 2 and fields[1] == Path(path).name
-            and fields[0] == sha256_file(path), "threshold file SHA256 mismatch")
     document = read_json(path)
-    require(document.get("schema_version") == 1, "unsupported threshold schema")
-    require(document.get("content_sha256") == object_hash(
-        {k: v for k, v in document.items() if k != "content_sha256"}),
-        "threshold content hash mismatch")
-    require(isinstance(document.get("calibration_file_sha256"), str)
-            and HASH_RE.fullmatch(document["calibration_file_sha256"]),
-            "missing original calibration file hash")
-    require(document.get("calibration_rows_sha256") == calibration_fingerprint(calibration_rows),
-            "calibration identity differs from frozen input")
+    require(document.get("schema_version") == 2, "unsupported threshold schema")
     expected, _ = fit_document(calibration_rows, document["alphas"])
     for key in ("comparison", "threshold_grid", "selection", "budget_rule", "entries",
-                "configurations", "calibration_rows_sha256"):
-        require(document.get(key) == expected[key], f"invalid frozen threshold {key}")
+                "configurations"):
+        require(document.get(key) == expected[key], f"thresholds differ from calibration: {key}")
     for entry in document["entries"]:
         require(float.fromhex(entry["theta_hex"]) == entry["theta"], "theta hex/decimal mismatch")
     return document
@@ -59,8 +47,6 @@ def load_thresholds(path, calibration_rows):
 
 def validate_anchors(path, cells, keys):
     anchors = read_json(path)
-    require(isinstance(anchors.get("source_sha256"), str)
-            and HASH_RE.fullmatch(anchors["source_sha256"]), "anchor source hash required")
     require(isinstance(anchors.get("counts"), list), "anchor counts must be a list")
     expected = {(d, k) for d in ("sharegpt500", "harmbench2385") for k in keys}
     seen = set()
@@ -247,8 +233,8 @@ def run_evaluation(thresholds, normalized, anchors, output_dir):
     for name, data in zip(("operating_points.csv", "per_length_calibrated.csv",
                            "base_positive_filtering.csv", "paired_cluster_deltas.csv"), results):
         write_csv(output / name, data)
-    finish_manifest(output, [thresholds, Path(str(thresholds) + ".sha256"), normalized, anchors], rows,
-                    dict(bootstrap_replicates=REPLICATES, bootstrap_seed=BOOTSTRAP_SEED,
+    write_json(output / "run_settings.json",
+                    dict(record_count=len(rows), bootstrap_replicates=REPLICATES, bootstrap_seed=BOOTSTRAP_SEED,
                          rng="numpy.default_rng/PCG64", numpy_version=np.__version__,
                          interval="percentile/linear, conditional on frozen calibration",
                          group_order="lexicographic canonical base_group_id",

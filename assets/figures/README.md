@@ -11,11 +11,11 @@ base-classifier bypass attacks, with 159 base-request clusters. RandomPairGrid
 uses the mean of five fixed orders. Error bars are clustered 95% bootstrap
 intervals; the vertical axis is restricted to 40-100%.
 
-Numerical sources are `data/aggregate/fresh.csv` and
-`data/aggregate/random.csv`. The default B384 canonical intervals are also
-available in `reference/operating_points.csv`.
+The budget curves use the historical aggregates in `data/aggregate/fresh.csv`
+and `data/aggregate/random.csv`, with default B384 endpoints and intervals
+overlaid from the canonical results in `reference/operating_points.csv`.
+The historical aggregates are preserved rather than rewritten.
 
 The figure contains aggregate values, not source prompts or token sequences.
 It is author-created artwork accompanying an accepted paper, not a publisher
-PDF or a separate claim of formal publication. Its file hash is included in
-the root `MANIFEST.sha256`.
+PDF.

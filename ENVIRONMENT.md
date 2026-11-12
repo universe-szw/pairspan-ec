@@ -41,3 +41,6 @@ network access, a GPU, or an API key.
 The CLI does not truncate classifier inputs. It checks input length including
 special tokens and rejects overlength requests. The 512-position limit in the
 paper settings belongs to the saliency gradient pass, not classifier inference.
+The PairSpan caller explicitly passes this limit to the saliency function;
+the function's standalone default is not the paper setting. NMS retains at most
+`min(single_keep, coarse_keep)` spans, which is 28 under the paper configuration.

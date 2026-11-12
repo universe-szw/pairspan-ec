@@ -1,37 +1,63 @@
 {
-  "release_version": "1.0.0-rc.1",
-  "verification_date": "2026-11-04",
+  "release_version": "1.0.0",
+  "verification_date": "2026-11-13",
   "status": "passed",
-  "scope": "Local verification snapshot: numerical recomputation and synthetic local-model tests; no new benchmark inference or hardware timing.",
+  "scope": "Local verification of numerical recomputation and synthetic CPU-model tests; no new benchmark inference, GPU evaluation, or hardware timing.",
   "environment": {
     "python": "3.11.2",
     "numpy": "2.2.6",
-    "torch": "2.5.1+cpu",
+    "torch": "2.5.1+cu121",
     "transformers": "4.47.0",
     "safetensors": "0.4.5",
-    "platform": "Windows x86_64",
-    "requirements": "requirements-inference-verified.txt"
+    "platform": "Windows-10-10.0.26200-SP0",
+    "test_device": "cpu",
+    "installation": "Existing Python 3.11 environment"
   },
   "tests": {
-    "full": {"run": 25, "failures": 0, "errors": 0, "skipped": 0},
-    "numpy_only": {"run": 25, "failures": 0, "errors": 0, "skipped": 13}
-  },
-  "implementation_identity": {
-    "function_hashes_verified": 34,
-    "unchanged_paper_functions": 33,
-    "wrapper_override": "provenance/code_identity.json"
+    "full": {
+      "run": 30,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    "numpy_only": {
+      "run": 30,
+      "skipped": 15,
+      "failures": 0,
+      "errors": 0
+    }
   },
   "numeric_reproduction": {
-    "files_hash_verified": 73,
     "threshold_entries_verified": 55,
     "evaluation": {
-      "operating_points.csv": {"rows": 216, "compared_cells": 6048},
-      "per_length_calibrated.csv": {"rows": 1080, "compared_cells": 10800},
-      "base_positive_filtering.csv": {"rows": 216, "compared_cells": 1728},
-      "paired_cluster_deltas.csv": {"rows": 30, "compared_cells": 510}
+      "operating_points.csv": {
+        "rows": 216,
+        "compared_cells": 6048
+      },
+      "per_length_calibrated.csv": {
+        "rows": 1080,
+        "compared_cells": 10800
+      },
+      "base_positive_filtering.csv": {
+        "rows": 216,
+        "compared_cells": 1728
+      },
+      "paired_cluster_deltas.csv": {
+        "rows": 30,
+        "compared_cells": 510
+      }
     },
-    "timing": {"measurements": 15900, "methods": 5}
+    "timing": {
+      "methods": 5,
+      "measurements": 15900,
+      "scope": "Statistics of archived synchronized timing runs; not a new hardware benchmark."
+    }
   },
   "citation_schema": "CFF 1.2.0",
-  "ci_url": "https://github.com/universe-szw/pairspan-ec/actions/workflows/tests.yml"
+  "ci_url": "https://github.com/universe-szw/pairspan-ec/actions/workflows/tests.yml",
+  "numpy_only_environment": {
+    "python": "3.11.2",
+    "numpy": "2.2.6",
+    "optional_inference_dependencies": false
+  }
 }

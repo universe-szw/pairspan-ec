@@ -155,10 +155,5 @@
       "seed": 42
     }
   ],
-  "meaning": "HarmBench positive counts restricted to original 2380 bypass; benign all500",
-  "source_files": {
-    "outputs\\revision_v2_phase2_full\\analysis\\revision_v2_phase2_benign_full\\benign_full_summary.csv": "268b3d2a3e1ae46316f8ab76ad333fbb462391a780d3325bc2bc9342e89dd30e",
-    "outputs\\revision_v2_phase2_full\\verified_results\\revision_v2_verified\\fresh_main_summary.csv": "dd448bc0d55c598f58e3114862d32a296ec6762f71108af7533e43144fc16bb8"
-  },
-  "source_sha256": "ad067e80011d67b2fee26057f9d92b55abcc20bd78c6034aae354eb7cdf4fcf8"
+  "meaning": "HarmBench positive counts restricted to original 2380 bypass; benign all500"
 }

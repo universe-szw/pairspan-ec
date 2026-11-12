@@ -17,8 +17,7 @@
     "benign_class": 1,
     "harmful_class": 0,
     "inference_truncation": false,
-    "overlength_input_policy": "reject; do not silently truncate",
-    "state_dict_sha256": "f566a38471cf4d3cc4adca08f24b38b55c84ba10979306bd4fc4a26549e255f0"
+    "overlength_input_policy": "reject; do not silently truncate"
   },
   "conference": "WSDM 2027",
   "pairspan": {
@@ -37,17 +36,13 @@
     "single_keep": 28,
     "total_query_cap": 384
   },
-  "pdf_sha256": {
-    "main": "5001f9acf00fc41e46ba276bfb6f9e0bdbd92e338f6f2ffe792c8db799dfd63b",
-    "supplementary": "8d2330409c2ff8acff2ada4b96f767c154bcb5934ffec032f9c1851006eb9780"
-  },
   "published_inference_environment": {
     "cuda": "11.8",
     "python": "3.10.13",
     "torch": "2.4.1+cu118",
     "transformers": "4.57.6"
   },
-  "revision": "2026-11-04 content revision",
+  "release_version": "1.0.0",
   "title": "Finite-Budget Pair-Span Search for Classifier-Based Prompt Screening",
   "verification_environment": "Recorded separately in REPRODUCTION_REPORT.json"
 }

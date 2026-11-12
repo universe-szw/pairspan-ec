@@ -1,8 +1,7 @@
 """Paper EC search policies and release API wrappers.
 
-Canonical trace/search functions retain the paper implementation. Release API
-changes are documented in provenance/code_identity.json. Candidate evaluation
-retains the paper's stage/prefix schedule; verbose diagnostics are off by default.
+Candidate evaluation follows the paper's stage/prefix schedule; verbose
+diagnostics are off by default. The boolean API raises on saliency failures.
 """
 import hashlib
 import itertools
@@ -154,14 +153,6 @@ def _empty_trace(candidate_policy, verbose=False):
     return trace
 
 
-def _hash_text(text):
-    return hashlib.sha256(text.encode("utf-8", errors="ignore")).hexdigest()[:16]
-
-
-def _hash_token_ids(token_ids):
-    return hashlib.sha256(",".join(str(int(x)) for x in token_ids).encode("utf-8")).hexdigest()[:16]
-
-
 def _deleted_token_ids(prompt_tokens, spans):
     token_ids = []
     for start, end in spans or []:
@@ -189,7 +180,7 @@ def _marker_category(text):
     return "unknown"
 
 
-def _event_from_candidate(stage, candidate_prompt, spans, score, threshold, prompt_tokens, tokenizer, event_type):
+def _event_from_candidate(stage, spans, score, threshold, prompt_tokens, tokenizer, event_type):
     spans = [(int(start), int(end)) for start, end in (spans or [])]
     deleted_ids = _deleted_token_ids(prompt_tokens, spans)
     deleted_text = tokenizer.decode(deleted_ids) if deleted_ids else ""
@@ -203,8 +194,6 @@ def _event_from_candidate(stage, candidate_prompt, spans, score, threshold, prom
         "span_count": len(spans),
         "deletion_token_count": len(deleted_ids),
         "deletion_ratio": float(deletion_ratio),
-        "candidate_hash": _hash_text(candidate_prompt),
-        "deleted_token_hash": _hash_token_ids(deleted_ids),
         "marker_category": _marker_category(deleted_text),
     }
 
@@ -231,7 +220,6 @@ def _record_verbose_batch(trace, stage, prompts, metas, harmful, scores, prompt_
             trace,
             _event_from_candidate(
                 stage,
-                prompts[best_idx],
                 metas[best_idx],
                 scores[best_idx],
                 threshold,
@@ -241,11 +229,11 @@ def _record_verbose_batch(trace, stage, prompts, metas, harmful, scores, prompt_
             ),
             per_stage_limit=8,
         )
-    for prompt, spans, is_bad, score in zip(prompts, metas, harmful, scores):
+    for spans, is_bad, score in zip(metas, harmful, scores):
         if bool(is_bad) and float(score) >= threshold:
             _append_limited_verbose_event(
                 trace,
-                _event_from_candidate(stage, prompt, spans, score, threshold, prompt_tokens, tokenizer, event_type="hit"),
+                _event_from_candidate(stage, spans, score, threshold, prompt_tokens, tokenizer, event_type="hit"),
             )
 
 
@@ -856,6 +844,7 @@ def random_pair_grid_ec_trace(
         num_adv=num_adv,
     )
     order = list(range(len(pair_prompts)))
+    # This input-derived seed fixes the paper's candidate order across processes.
     stable_seed = int(hashlib.sha256(prompt.encode("utf-8", errors="ignore")).hexdigest()[:16], 16)
     random.Random(seed ^ stable_seed).shuffle(order)
     order = order[:max(0, candidate_budget - 1)]

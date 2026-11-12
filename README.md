@@ -64,6 +64,12 @@ calibration changes the comparison: at an observed shared test FPR of
 **6.20% (31/500)**, PairSpan-EC recovers **29.03%** and GeometricPrefix
 **32.10%**. The repository retains both default and calibrated results.
 
+The aggregate [JailbreakBench results](data/aggregate/jailbreakbench.csv)
+also retain the external-attack boundary: on JBC-manual / Vicuna-13B,
+PairSpan-EC detects 1/100 artifacts at B384, whereas reference-schedule
+GreedyEC-20 detects 100/100 with 4,701.34 mean checks. These are artifact
+classification results, not a common-cap or downstream-generation comparison.
+
 ## Maintenance
 
 Maintained by Zhewei Shen ([@universe-szw](https://github.com/universe-szw)).
@@ -73,12 +79,12 @@ Final paper metadata will be added when available.
 ## Directory Structure
 
 - `src/`: PairSpan-EC, EC controls, saliency, calibration, and statistical analysis.
-- `data/`: de-identified measurements, aggregate evaluation tables, and timing records.
+- `data/`: de-identified measurements, aggregate evaluation tables, timing records,
+  and [metric definitions](data/README.md).
 - `reference/`: numerical targets used to check the reproduction outputs.
 - `configs/`: classifier conventions and the paper's default parameters.
-- `assets/figures/`: the paper's budget-recovery figure and its provenance.
+- `assets/figures/`: the paper's budget-recovery figure and source description.
 - `tests/`: numerical validation, core-policy tests, and an offline inference smoke test.
-- `provenance/`: implementation identities and measurement-export definitions.
 
 ## Numerical Records
 
@@ -98,7 +104,10 @@ pool is human-validated.
 Original input texts, token sequences, model weights, and attack-generation
 code are excluded. The supplied measurements support statistical recomputation;
 aggregate-only evaluations are listed in [RESULT_MAP.md](RESULT_MAP.md).
-See [DATA_SCOPE.md](DATA_SCOPE.md) for dataset and verification definitions.
+Use `reference/operating_points.csv` for the published B384 default and
+calibrated intervals. Some aggregate CSVs retain historical intervals; their
+roles and units are specified in [data/README.md](data/README.md).
+See [DATA_SCOPE.md](DATA_SCOPE.md) for dataset and verification scope.
 
 ## Quick Start Without a GPU or API Key
 
@@ -117,7 +126,7 @@ Execution is offline once the dependency is installed.
 
 Outputs include `fit/thresholds.json`, `evaluation/operating_points.csv`,
 per-length results, paired differences, timing summaries, and `verification.json`.
-Use a new or empty output directory. Integrity mismatches stop execution.
+Use a new or empty output directory. Invalid records or numerical mismatches stop execution.
 Recomputing recorded measurements is distinct from rerunning model inference
 or measuring new hardware latency.
 
@@ -138,15 +147,13 @@ and costs without saving input or deletion text.
 The paper uses two insertion spans, maximum span length 64, and 384 classifier
 evaluations. Classifier inference does not automatically truncate inputs; the
 CLI rejects inputs exceeding the model context, counting special tokens.
-Only the saliency gradient pass truncates at 512 positions. Settings and the
-original checkpoint fingerprint are in
+Only the saliency gradient pass truncates at 512 positions. Settings are in
 [configs/paper_settings.json](configs/paper_settings.json).
-The original fine-tuned checkpoint is not distributed, and its fingerprint is
-an identity check, not a model download or training recipe. Running the policy
-on another compatible checkpoint does not reproduce the paper's measured rates.
+The original fine-tuned checkpoint is not distributed. Running the policy on
+another compatible checkpoint does not reproduce the paper's measured rates.
 
 The boolean `pairspan_ec` API raises if requested saliency fails. The diagnostic
-`pairspan_ec_trace` API preserves the original trace behavior and reports
+`pairspan_ec_trace` API reports
 `saliency_error_type`; callers must check that field before using its decision.
 Set `use_saliency=False` only when deliberately running the no-saliency variant.
 
@@ -173,7 +180,7 @@ on Python 3.11.
 Code and numerical measurement exports are distributed under the [MIT license](LICENSE).
 The upstream erase-and-check attribution is retained in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Source datasets and model
-weights are not redistributed. Figure attribution and source hashes are in
+weights are not redistributed. Figure attribution and source information are in
 [assets/figures/README.md](assets/figures/README.md).
 
 ## Citation

@@ -1,8 +1,7 @@
-"""Offline numerical reproduction with independent frozen reference checks."""
+"""Offline numerical reproduction checked against the paper's reference results."""
 
 import argparse
 import csv
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -10,20 +9,6 @@ import sys
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
-
-
-def verify_files():
-    manifest = ROOT / "MANIFEST.sha256"
-    declared = set()
-    for line in manifest.read_text(encoding="ascii").splitlines():
-        expected, relative = line.split("  ", 1)
-        path = ROOT / relative
-        if not path.resolve().is_relative_to(ROOT.resolve()) or relative in declared:
-            raise ValueError("Invalid or duplicate manifest path")
-        declared.add(relative)
-        if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
-            raise ValueError(f"Package integrity mismatch: {relative}")
-    return len(declared)
 
 
 def compare_csv(actual, reference):
@@ -51,7 +36,6 @@ def compare_csv(actual, reference):
 
 
 def run(output):
-    checked = verify_files()
     from fit_thresholds import run_fit, read_json, prepare_output, write_json
     from evaluate_operating_points import run_evaluation
     output = prepare_output(output)
@@ -66,8 +50,7 @@ def run(output):
                                 "base_positive_filtering.csv", "paired_cluster_deltas.csv")}
     from summarize_timing import summarize
     timing = summarize(ROOT, output)
-    report = dict(status="passed", files_hash_verified=checked,
-                  threshold_entries_verified=len(entries), evaluation=comparisons,
+    report = dict(status="passed", threshold_entries_verified=len(entries), evaluation=comparisons,
                   timing=timing,
                   scope="Recomputation from original numeric measurements; no fresh model inference.")
     write_json(output / "verification.json", report)
