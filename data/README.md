@@ -26,6 +26,19 @@ are recorded run times, not the isolated timing comparison. For that comparison,
 use `data/timing/*.csv` and `reference/timing_summaries.json`: each prompt's
 median over five repetitions is computed before summarizing across prompts.
 
+## GradEC Gradient Accounting
+
+Raw GradEC traces omit `gradient_pass_count`; the aggregation scripts substituted
+zero for the missing field. GradEC's `mean_gradient_passes` entries in
+[fresh.csv](aggregate/fresh.csv) and [protocol.csv](aggregate/protocol.csv), and
+`mean_gradient_passes_bypass` in [roberta.csv](aggregate/roberta.csv), therefore
+do not measure its optimization backward passes. Treat these entries as
+unrecorded gradient costs, not zero backward passes or valid totals for
+cross-method gradient-cost comparisons. GradEC's classifier checks count its
+discrete classification evaluations, excluding continuous optimization
+forwards and backwards. The archived values are retained; the five-method
+isolated timing comparison does not include GradEC.
+
 ## Mode Matrix and Fallback
 
 `aggregate/mismatch.csv` compares complete classifier--search configurations.

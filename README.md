@@ -157,6 +157,18 @@ The boolean `pairspan_ec` API raises if requested saliency fails. The diagnostic
 `saliency_error_type`; callers must check that field before using its decision.
 Set `use_saliency=False` only when deliberately running the no-saliency variant.
 
+### Known Limitations
+
+The CLI checks the original input length, but decoded deletion candidates can
+exceed the classifier context after re-tokenization and fail during scoring.
+It also strips leading and trailing input whitespace. Geometric grids are
+fully constructed before prefix selection, and MCE's classification cap does
+not bound candidate-construction work; repetitive inputs can require extensive
+enumeration. GradEC's optimization backward passes were not recorded, so its
+historical zero gradient aggregates do not indicate zero gradient work. See
+[GradEC gradient accounting](data/README.md#gradec-gradient-accounting) for the
+affected fields and cost definitions.
+
 ## Development
 
 ```text
