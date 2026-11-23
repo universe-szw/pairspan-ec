@@ -1,7 +1,10 @@
 # Release 1.0.0
 
 Code and numerical records for **Finite-Budget Pair-Span Search for
-Classifier-Based Prompt Screening**, accepted at WSDM 2027.
+Classifier-Based Prompt Screening**, accepted for poster presentation at WSDM 2027.
+The [paper](https://doi.org/10.1145/3862322.3863422) and its
+[supplementary material](https://github.com/universe-szw/pairspan-ec/blob/main/supplementary.pdf)
+are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Included
 

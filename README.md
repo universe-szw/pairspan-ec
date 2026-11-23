@@ -6,9 +6,9 @@ This repository provides the core implementation, de-identified experimental
 measurements, and numerical reproduction scripts for **Finite-Budget Pair-Span
 Search for Classifier-Based Prompt Screening**.
 
-**Accepted at WSDM 2027, Main Conference; to appear.**
+**Accepted for poster presentation at WSDM 2027.**
 
-[Supplementary material (PDF)](supplementary.pdf)
+[Paper DOI](https://doi.org/10.1145/3862322.3863422) · [Supplementary material (PDF)](supplementary.pdf)
 
 ## Method
 
@@ -191,6 +191,10 @@ on Python 3.11.
 
 ## License and Reuse
 
+The paper and its supplementary material are licensed under
+[Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).
+© 2027 Copyright held by the owner/author(s).
+
 Code and numerical measurement exports are distributed under the [MIT license](LICENSE).
 The upstream erase-and-check attribution is retained in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Source datasets and model
@@ -199,8 +203,10 @@ weights are not redistributed. Figure attribution and source information are in
 
 ## Citation
 
-Zhewei Shen and Sha Yuan. **Finite-Budget Pair-Span Search for Classifier-Based
-Prompt Screening.** Accepted at **WSDM 2027, Main Conference**; to appear.
+Zhewei Shen and Sha Yuan. 2027. **Finite-Budget Pair-Span Search for Classifier-Based
+Prompt Screening.** In *Proceedings of the Twentieth ACM International Conference
+on Web Search and Data Mining (WSDM 2027)*, February 15–19, 2027, Hong Kong.
+ACM, New York, NY, USA. ISBN 979-8-4007-3117-4.
+[DOI 10.1145/3862322.3863422](https://doi.org/10.1145/3862322.3863422).
 
 Machine-readable paper and software metadata are in [CITATION.cff](CITATION.cff).
-The DOI and proceedings link will be added when assigned.

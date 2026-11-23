@@ -20,6 +20,13 @@ preferred-citation:
       orcid: https://orcid.org/0009-0009-2262-8863
     - family-names: Yuan
       given-names: Sha
+      orcid: https://orcid.org/0000-0003-0199-6391
   year: 2027
-  collection-title: "Proceedings of the 20th ACM International Conference on Web Search and Data Mining"
-  notes: "Accepted at WSDM 2027, Main Conference; to appear."
+  collection-title: "Proceedings of the Twentieth ACM International Conference on Web Search and Data Mining (WSDM 2027)"
+  publisher:
+    name: Association for Computing Machinery
+  doi: 10.1145/3862322.3863422
+  isbn: "979-8-4007-3117-4"
+  copyright: "© 2027 Copyright held by the owner/author(s)."
+  license: CC-BY-4.0
+  notes: "Accepted for poster presentation at WSDM 2027."
