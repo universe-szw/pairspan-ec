@@ -8,6 +8,8 @@ Search for Classifier-Based Prompt Screening**.
 
 **Accepted at WSDM 2027, Main Conference; to appear.**
 
+[Supplementary material (PDF)](supplementary.pdf)
+
 ## Method
 
 Erase-and-check screens a prompt by deleting token spans and classifying the
