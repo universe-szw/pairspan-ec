@@ -205,7 +205,7 @@ weights are not redistributed. Figure attribution and source information are in
 
 Zhewei Shen and Sha Yuan. 2027. **Finite-Budget Pair-Span Search for Classifier-Based
 Prompt Screening.** In *Proceedings of the Twentieth ACM International Conference
-on Web Search and Data Mining (WSDM 2027)*, February 15–19, 2027, HongKong,China.
+on Web Search and Data Mining (WSDM 2027)*, February 15–19, 2027, Hong Kong.
 ACM, New York, NY, USA. ISBN 979-8-4007-3117-4.
 [DOI 10.1145/3862322.3863422](https://doi.org/10.1145/3862322.3863422).
 
